@@ -5,12 +5,15 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "SFMono Nerd Font:pixelsize=10:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
-/*	"Inconsolata for Powerline:pixelsize=12:antialias=true:autohint=true", */
-/*	"Hack Nerd Font Mono:pixelsize=11:antialias=true:autohint=true", */
+	"RobotoMono Nerd Font:pixelsize=10:antialias=true:autohint=true",
+	"Cousine Nerd Font:pixelsize=11:antialias=true:autohint=true",
+	"Fira Code Nerd Font:pixelsize=11:antialias=true:autohint=true",
+	"Cascadia Mono:pixelsize=11:antialias=true:autohint=true",
+	"Noto Sans Mono:pixelsize=11:antialias=true:autohint=true",
 };
 #endif // FONT2_PATCH
 
@@ -29,7 +32,7 @@ static const int pseudotransparency = 0;
  *             0 = no border, 100 = border width is same as cell width */
 int borderperc = 20;
 #else
-static int borderpx = 2;
+static int borderpx = 4;
 #endif // RELATIVEBORDER_PATCH
 
 #if OPENURLONCLICK_PATCH
@@ -64,7 +67,7 @@ char *vtiden = "\033[?6c";
 
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
-static float chscale = 1.0;
+static float chscale = 1.05;
 
 /*
  * word delimiter string
@@ -130,7 +133,7 @@ int hidecursor = 1;
  *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
  * 0: disable (render all U25XX glyphs normally from the font).
  */
-const int boxdraw = 0;
+const int boxdraw = 1;
 const int boxdraw_bold = 0;
 
 /* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
@@ -178,32 +181,26 @@ float alphaUnfocused = 0.6;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	[0] = "#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	[1] = "#e44740", /* red     */
+	/* [1] = "#cc241d", /\* red     *\/ */
+	[2] = "#98971a", /* green   */
+	[3] = "#d79921", /* yellow  */
+	[4] = "#458588", /* blue    */
+	[5] = "#b16286", /* magenta */
+	[6] = "#689d6a", /* cyan    */
+	[7] = "#a89984", /* white   */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#000000", /* 258 -> bg */
-	"#e5e5e5", /* 259 -> fg */
+	[8]  = "#928374", /* black   */
+	[9]  = "#fc7d6e", /* red     */
+	/* [9]  = "#fb4934", /\* red     *\/ */
+	[10] = "#b8bb26", /* green   */
+	[11] = "#fabd2f", /* yellow  */
+	[12] = "#83a598", /* blue    */
+	[13] = "#d3869b", /* magenta */
+	[14] = "#8ec07c", /* cyan    */
+	[15] = "#ebdbb2", /* white   */
 };
 
 
@@ -215,10 +212,10 @@ static const char *colorname[] = {
 unsigned int defaultbg = 0;
 unsigned int bg = 17, bgUnfocused = 16;
 #else
-unsigned int defaultbg = 258;
+unsigned int defaultbg = 0;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
-unsigned int defaultfg = 259;
-unsigned int defaultcs = 256;
+unsigned int defaultfg = 15;
+unsigned int defaultcs = 15;
 unsigned int defaultrcs = 257;
 #if SELECTION_COLORS_PATCH
 unsigned int selectionfg = 258;
@@ -264,8 +261,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 134;
+static unsigned int rows = 45;
 
 #if ANYGEOMETRY_PATCH
 /*
@@ -273,8 +270,8 @@ static unsigned int rows = 24;
  */
 
 static Geometry geometry = CellGeometry; // or PixelGeometry to use the below size
-static unsigned int width = 564;
-static unsigned int height = 364;
+static unsigned int width = 950;
+static unsigned int height = 652;
 #endif // ANYGEOMETRY_PATCH
 
 #if THEMED_CURSOR_PATCH

@@ -2039,6 +2039,10 @@ tsetmode(int priv, int set, const int *args, int narg)
 				MODBIT(term.mode, set, MODE_SIXEL_CUR_RT);
 				break;
 			#endif // SIXEL_PATCH
+			case 7727: /* Opening and closing tmux */
+				break;
+			case 2026: /* Btop */
+				break;
 			default:
 				fprintf(stderr,
 					"erresc: unknown private set/reset mode %d\n",

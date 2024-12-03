@@ -1,5 +1,6 @@
 { lib, stdenv, fetchurl, pkg-config, fontconfig, freetype, libX11, libXft
 , ncurses, writeText, conf ? null, patches ? [ ], extraLibs ? [ ], nixosTests
+, pkgs
 # update script dependencies
 , gitUpdater }:
 
@@ -21,8 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
   configFile =
     lib.optionalString (conf != null) (writeText "config.def.h" conf);
 
-  postPatch =
-    lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.def.h"
+  postPatch = ''
+    substituteInPlace config.mk \
+      --replace "#SIXEL_C = sixel.c sixel_hls.c" "SIXEL_C = sixel.c sixel_hls.c" \
+      --replace "#SIXEL_LIBS = `$(PKG_CONFIG) --libs imlib2`" "SIXEL_LIBS = `$(PKG_CONFIG) --libs imlib2`"
+  '' + lib.optionalString (conf != null)
+    "cp ${finalAttrs.configFile} config.def.h"
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace config.mk --replace "-lrt" ""
     '';
@@ -32,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = [ "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config" ];
 
   nativeBuildInputs = [ pkg-config ncurses fontconfig freetype ];
-  buildInputs = [ libX11 libXft ] ++ extraLibs;
+  buildInputs = [ libX11 libXft pkgs.imlib2Full ] ++ extraLibs;
 
   preInstall = ''
     export TERMINFO=$terminfo/share/terminfo
