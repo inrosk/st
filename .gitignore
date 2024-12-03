@@ -2,3 +2,6 @@
 config.h
 patches.h
 st
+
+.direnv/
+result
