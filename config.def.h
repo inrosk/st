@@ -99,7 +99,7 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 2;
+static double minlatency = 8;
 static double maxlatency = 33;
 
 #if SYNC_PATCH
@@ -261,7 +261,7 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 134;
+static unsigned int cols = 156;
 static unsigned int rows = 45;
 
 #if ANYGEOMETRY_PATCH
