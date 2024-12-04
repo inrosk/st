@@ -8,7 +8,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "st";
   version = "0.9.2";
 
-  src = /home/karol/side-projects/suckless-utils/st-flexipatch;
+  src = ./.;
 
   # src = fetchurl {
   #   url = "https://dl.suckless.org/st/st-${finalAttrs.version}.tar.gz";
