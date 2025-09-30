@@ -32,3 +32,16 @@ Credits
 -------
 Based on Aurélien APTEL <aurelien dot aptel at gmail dot com> bt source code.
 
+Patches
+-------
+- scrollback
+- anysize
+- anygeometry
+- sync
+- default-cursor
+- bold-is-not-bright
+- fix_keyboard_input
+- drag-n-drop
+- desktopentry
+- gruvbox
+
