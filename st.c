@@ -1836,6 +1836,9 @@ tsetmode(int priv, int set, const int *args, int narg)
 				      and can be mistaken for other control
 				      codes. */
 				break;
+			case 7727: /* When opening and closing tmux */
+			case 2026: /* When btop */
+				break;
 			default:
 				fprintf(stderr,
 					"erresc: unknown private set/reset mode %d\n",
@@ -1880,6 +1883,9 @@ csihandle(void)
 		fprintf(stderr, "erresc: unknown csi ");
 		csidump();
 		/* die(""); */
+		break;
+	case '>': /* Removes error when starting and closing neovim */
+	case '?':
 		break;
 	case '@': /* ICH -- Insert <n> blank char */
 		DEFAULT(csiescseq.arg[0], 1);
@@ -2257,6 +2263,8 @@ strhandle(void)
 			} else {
 				tfulldirt();
 			}
+			return;
+		case 8: /* Suppress hyperlink handling */
 			return;
 		}
 		break;
